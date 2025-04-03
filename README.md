@@ -53,7 +53,7 @@ The goal of this project is to create a quiz application where users can:
 
 ❌Incomplete Features
 -> Final score displayed at the end but not the percentage
-s
+
 🛠 Tech Stack
 React.js
 React Router (for navigation)
