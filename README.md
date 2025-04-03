@@ -1,12 +1,62 @@
-# React + Vite
+# 🧠 Quiz App  
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A React-based quiz application that allows users to select categories, answer timed questions, and track their scores.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Getting Started  
 
-## Expanding the ESLint configuration
+### **Prerequisites**  
+Ensure you have the following installed on your system:  
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- **Node.js** (v16 or later)  
+- **npm** (or **yarn**)  
+
+### **Installation & Setup**  
+
+Follow these steps to set up and run the project locally:  
+
+```sh
+# Clone the repository
+git clone https://github.com/your-username/quiz-app.git
+
+# Navigate into the project directory
+cd quiz-app
+
+# Install dependencies
+npm install
+
+# Start the development server
+npm start
+
+
+The app will now be available at http://localhost:3000 🎉
+
+📌 Problem Statement
+The goal of this project is to create a quiz application where users can:
+
+✅ Select a quiz category
+
+✅ Answer multiple-choice questions
+
+✅ View a timer for each question
+
+✅ Automatically proceed to the next question after answering
+
+✅ Get a final score at the end of the quiz
+
+✅ Completed Features
+✔ After the user selects a category, the relevant questions should be loaded.
+✔ Display one question at a time with four multiple-choice options.
+✔ Implement a 10-second countdown timer for each question. If the user doesn’t answer within the time limit, automatically move to the next question.
+✔ Users should be able to manually navigate to the next question before the timer expires using a "Next" button.
+
+❌Incomplete Features
+-> Final score displayed at the end but not the percentage
+s
+🛠 Tech Stack
+React.js
+React Router (for navigation)
+Context API (for state management)
+Tailwind CSS (for styling)
+
