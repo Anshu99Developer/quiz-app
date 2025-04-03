@@ -17,7 +17,8 @@ export default {
         light: "#E9E8E3",
         borderColor: "#D9D9D9",
         color_C2C2C2: "#C2C2C2",
-        placeholderColor: "rgba(46,46,46,0.4)"
+        placeholderColor: "rgba(46,46,46,0.4)",
+        backdropColor: "rgba(0,0,0,0.3)",
       },
       boxShadow: {},
       fontSize: {

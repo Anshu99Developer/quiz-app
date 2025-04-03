@@ -1,24 +1,66 @@
-const QuizRulePopup = () => {
+import Popup from "./Popup";
+
+const QuizRulePopup = ({closeHandler}) => {
   return (
-    <div className="fixed left-1/2 top-1/2">
-      <div>
-        <h3>Quiz rules</h3>
-        <span className="block w-[34px] h-[34px]">
-          <svg
-            width="14"
-            height="14"
-            viewBox="0 0 14 14"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M0.81667 10.8167C0.16667 11.4667 0.16667 12.5167 0.81667 13.1667C1.15 13.5 1.56667 13.65 2 13.65C2.43334 13.65 2.85 13.4833 3.18334 13.1667L7 9.34999L10.8167 13.1667C11.15 13.5 11.5667 13.65 12 13.65C12.4333 13.65 12.85 13.4833 13.1833 13.1667C13.8333 12.5167 13.8333 11.4667 13.1833 10.8167L9.36667 6.99999L13.1833 3.18333C13.8333 2.53333 13.8333 1.48333 13.1833 0.833325C12.5333 0.183325 11.4833 0.183325 10.8333 0.833325L7.01667 4.64999L3.2 0.833325C2.55 0.183325 1.5 0.183325 0.850004 0.833325C0.200004 1.48333 0.200004 2.53333 0.850004 3.18333L4.66667 6.99999L0.850004 10.8167H0.81667Z"
-              fill="black"
-            />
-          </svg>
-        </span>
+    <Popup title="Quiz rules" closeHandler={closeHandler}>
+      <div className="mt-8 flex flex-col gap-8">
+        <div>
+          <div className="py-3 px-6 rounded bg-[#F3F3E9]">
+            <h4 className="lg:text-xl text-base font-bold text-black">
+              10-Second Timer
+            </h4>
+          </div>
+          <ul className="mt-2">
+            <li className="lg:text-xl text-sm text-black">
+              Each question comes with a 10-second timer.
+            </li>
+            <li className="lg:text-xl text-sm text-black">
+              If you don’t answer within the time limit, the app will
+              automatically move to the next question.
+            </li>
+          </ul>
+        </div>
+        <div>
+          <div className="py-3 px-6 rounded bg-[#F3F3E9]">
+            <h4 className="lg:text-xl text-base font-bold text-black">
+              Manual Navigation
+            </h4>
+          </div>
+          <ul className="mt-2">
+            <li className="lg:text-xl text-sm text-black">
+              You can navigate to the next question manually before the timer
+              expires.
+            </li>
+            <li className="lg:text-xl text-sm text-black">
+              Use the "Next" button to move ahead if you’re ready before the
+              timer runs out.
+            </li>
+          </ul>
+        </div>
+        <div>
+          <div className="py-3 px-6 rounded bg-[#F3F3E9]">
+            <h4 className="lg:text-xl text-base font-bold text-black">
+              Final Score and Performance Message
+            </h4>
+          </div>
+          <ul className="mt-2">
+            <li className="lg:text-xl text-sm text-black">
+              After all questions are answered, your final score will be
+              displayed.
+            </li>
+            <li className="lg:text-xl text-sm text-black">
+              Based on your performance, you will receive a personalized
+              message:
+              <ul>
+                <li>Great job!: If you score above 80%.</li>
+                <li>Well done!: If you score between 60% and 80%. </li>
+                <li>Keep practicing!: If you score below 60%.</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
       </div>
-    </div>
+    </Popup>
   );
 };
 export default QuizRulePopup;

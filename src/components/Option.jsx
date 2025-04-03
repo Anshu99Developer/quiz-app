@@ -2,25 +2,25 @@ const Option = ({ topic, selectedTopic, selectHandler }) => {
   return (
     <div>
       <label
-        key={topic}
+        key={topic?.id}
         className="flex items-center text-xl rounded-lg border border-primary p-4 cursor-pointer"
       >
         <input
           type="radio"
-          name="topic"
-          value={topic}
-          checked={selectedTopic === topic}
+          name="topic?.id"
+          value={topic?.id}
+          checked={selectedTopic === topic?.id}
           onChange={(e) => selectHandler(e.target.value)}
           className="hidden"
         />
         <span
           className={`w-6 h-6 mr-4 flex items-center justify-center border rounded-full ${
-            selectedTopic === topic
+            selectedTopic === topic?.id
               ? "border-primary bg-primary"
               : "border-color_C2C2C2"
           }`}
         >
-          {selectedTopic === topic && (
+          {selectedTopic === topic?.id && (
             <svg
               width="24"
               height="24"
@@ -39,7 +39,7 @@ const Option = ({ topic, selectedTopic, selectHandler }) => {
             </svg>
           )}
         </span>
-        {topic}
+        {topic?.name}
       </label>
     </div>
   );

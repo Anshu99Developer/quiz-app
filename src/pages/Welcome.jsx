@@ -1,17 +1,41 @@
 import React, { useState } from "react";
-import Option from "../components/Option";
 import Button from "../components/Button";
+import Option from "../components/Option";
+import QuizRulePopup from "../components/QuizRulePopup";
+import { useQuiz } from "../context/QuizContext";
 
+const quizCategory = [
+  { id: "js_basics", name: "Javascript Basic" },
+  { id: "angular_basics", name: "Angular Basic" },
+  { id: "react_advance", name: "React.js Advance" },
+  { id: "flutter", name: "Flutter" },
+];
 const Welcome = () => {
-  const [fullName, setFullName] = useState("");
-  const [selectedTopic, setSelectedTopic] = useState("");
+  const [formData, setFormData] = useState({
+    fullName: "",
+    selectedTopic: "",
+  });
+  const [rulesPopup, setRulesPopup] = useState(false);
+  const { startQuiz } = useQuiz(); // ✅ Get startQuiz from context
+
+  const handleInputChange = (field, value) => {
+    setFormData((prev) => ({
+      ...prev,
+      [field]: value,
+    }));
+  };
 
   const handleStartQuiz = () => {
+    const { fullName, selectedTopic } = formData;
     if (!fullName || !selectedTopic) {
       alert("Please fill in all fields before starting the quiz.");
       return;
     }
-    console.log("Quiz started with:", { fullName, selectedTopic });
+    startQuiz(fullName, selectedTopic); // ✅ Store in context and redirect
+  };
+
+  const handleRulesPopup = () => {
+    setRulesPopup(!rulesPopup);
   };
 
   return (
@@ -24,21 +48,25 @@ const Welcome = () => {
         <div className="bg-[#D9D9D94D] px-4 py-3 rounded-lg">
           <p className="text-lg">
             Please read all the rules about this quiz before you start.{" "}
-            <span className="text-primary block">Quiz rules</span>
+            <span
+              className="text-primary block cursor-pointer"
+              onClick={handleRulesPopup}
+            >
+              Quiz rules
+            </span>
           </p>
         </div>
 
         <form className="mt-7">
           <div className="flex gap-4 flex-col">
             <label htmlFor="fullName" className="text-base block">
-              {" "}
               Full name
             </label>
             <input
               type="text"
               name="fullName"
-              value={fullName}
-              onChange={(e) => setFullName(e.target.value)}
+              value={formData.fullName}
+              onChange={(e) => handleInputChange("fullName", e.target.value)}
               placeholder="Full name"
               className="text-xl border border-color_C2C2C2 rounded-lg py-[15px] px-[21px] placeholder:text-placeholderColor bg-transparent"
             />
@@ -47,17 +75,14 @@ const Welcome = () => {
           <div className="mt-8">
             <p className="text-base">Please select topic to continue</p>
             <div className="grid grid-cols-2 gap-6 mt-4">
-              {[
-                "Javascript Basic",
-                "Angular Basic",
-                "React.js Advance",
-                "Flutter",
-              ].map((topic) => (
+              {quizCategory.map((topic) => (
                 <Option
-                  key={topic}
+                  key={topic?.id}
                   topic={topic}
-                  selectedTopic={selectedTopic}
-                  selectHandler={setSelectedTopic}
+                  selectedTopic={formData.selectedTopic}
+                  selectHandler={(value) =>
+                    handleInputChange("selectedTopic", value)
+                  }
                 />
               ))}
             </div>
@@ -67,13 +92,16 @@ const Welcome = () => {
               title="Start Quiz"
               btnType="fill"
               clickEvent={handleStartQuiz}
+              className="disabled:opacity-40"
               attributes={{
-                disabled: !fullName || !selectedTopic,
+                disabled:
+                  (!formData.fullName || !formData.selectedTopic) && true,
               }}
             />
           </div>
         </form>
       </div>
+      {rulesPopup && <QuizRulePopup closeHandler={handleRulesPopup} />}
     </div>
   );
 };
