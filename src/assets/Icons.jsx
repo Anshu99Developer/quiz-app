@@ -14,3 +14,75 @@ export const CloseIcon = () => {
     </svg>
   );
 };
+
+export const RadioIcon = () => {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <rect width="24" height="24" rx="12" fill="#B92B5D" />
+      <path
+        d="M7 12.75L10.125 15.875L17 9"
+        stroke="white"
+        strokeWidth="2.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+};
+
+export const KeepTrying = (props) => (
+  <svg
+    width={87}
+    height={87}
+    viewBox="0 0 87 87"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M43.606 6.111c-20.434 0-37 16.58-37 37.032s16.566 37.031 37 37.031 37-16.58 37-37.031c0-20.452-16.565-37.032-37-37.032m-43 37.032c0-23.768 19.252-43.037 43-43.037s43 19.269 43 43.037-19.251 43.037-43 43.037-43-19.268-43-43.037"
+      fill="#B92B5D"
+    />
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M23.607 31.133a4 4 0 0 1 4-4.004h.036c2.209 0 4 1.793 4 4.004a4 4 0 0 1-4 4.003h-.036a4 4 0 0 1-4-4.003m31.964 0a4 4 0 0 1 4-4.004h.036c2.21 0 4 1.793 4 4.004a4 4 0 0 1-4 4.003h-.036a4 4 0 0 1-4-4.003m2.82 18.902a3.004 3.004 0 0 1-1.671 3.903l-20 8.006a3 3 0 0 1-3.9-1.673 3.004 3.004 0 0 1 1.672-3.903l20-8.006a3 3 0 0 1 3.9 1.673"
+      fill="#B92B5D"
+    />
+  </svg>
+);
+
+export const GreatWork = (props) => (
+  <svg
+    width={97}
+    height={96}
+    viewBox="0 0 97 96"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
+    <rect
+      x={0.5}
+      width={96}
+      height={96}
+      rx={48}
+      fill="#06AF52"
+      fillOpacity={0.1}
+    />
+    <path
+      d="M28.5 51 41 63.5 68.5 36"
+      stroke="#06AF52"
+      strokeWidth={6}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);

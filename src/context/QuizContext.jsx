@@ -1,38 +1,8 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { quizData } from "../assets/data";
 
 const QuizContext = createContext();
-
-const quizData = {
-  categories: [
-    {
-      id: "js_basics",
-      name: "JavaScript Basics",
-      questions: [
-        {
-          id: "q1",
-          question:
-            "What is the correct syntax for referring to an external script called 'script.js'?",
-          options: [
-            "A. <script name='script.js'>",
-            "B. <script href='script.js'>",
-            "C. <script src='script.js'>",
-            "D. <script file='script.js'>",
-          ],
-          correctAnswer: "C",
-          timeLimit: 10,
-        },
-        {
-          id: "q2",
-          question: "Which company developed JavaScript?",
-          options: ["A. Microsoft", "B. Netscape", "C. Google", "D. Mozilla"],
-          correctAnswer: "B",
-          timeLimit: 10,
-        },
-      ],
-    },
-  ],
-};
 
 export const QuizProvider = ({ children }) => {
   const [fullName, setFullName] = useState("");
@@ -56,7 +26,7 @@ export const QuizProvider = ({ children }) => {
   }, [selectedCategory, currentQuestionIndex]);
 
   useEffect(() => {
-    if (timer === 0) {
+    if (timer === 0 && questions.length > 0) {
       setUnanswered((prev) => prev + 1);
       nextQuestion();
     }
@@ -69,7 +39,6 @@ export const QuizProvider = ({ children }) => {
     );
 
     if (categoryData && categoryData.questions.length > 0) {
-      // ✅ Check if questions exist
       setSelectedCategory(categoryData);
       setQuestions(categoryData.questions);
       setCurrentQuestionIndex(0);
@@ -84,24 +53,30 @@ export const QuizProvider = ({ children }) => {
 
   const checkAnswer = (answer) => {
     setSelectedAnswer(answer);
-    if (answer === questions[currentQuestionIndex].correctAnswer) {
+  
+    if (answer == questions[currentQuestionIndex].correctAnswer) {
       setScore((prev) => prev + 1);
     }
+  
     setTimeout(() => {
       nextQuestion();
     }, 500);
   };
+  
 
   const nextQuestion = () => {
-    if (questions.length === 0) return; // ✅ Prevent redirect if no questions are loaded
+    if (questions.length === 0) return;
 
-    if (currentQuestionIndex < questions.length - 1) {
-      setCurrentQuestionIndex((prev) => prev + 1);
-      setTimer(questions[currentQuestionIndex + 1].timeLimit);
-      setSelectedAnswer(null);
-    } else {
-      navigate("/result"); // ✅ Only navigate after the last question is answered
-    }
+    setCurrentQuestionIndex((prevIndex) => {
+      if (prevIndex < questions.length - 1) {
+        setTimer(questions[prevIndex + 1].timeLimit);
+        setSelectedAnswer(null);
+        return prevIndex + 1;
+      } else {
+        navigate("/result");
+        return prevIndex; // Keep index the same after navigation
+      }
+    });
   };
 
   return (
@@ -113,6 +88,7 @@ export const QuizProvider = ({ children }) => {
         currentQuestionIndex,
         timer,
         selectedAnswer,
+        setSelectedAnswer,
         score,
         unanswered,
         checkAnswer,

@@ -1,56 +1,46 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { RadioIcon } from "../assets/Icons";
+import Button from "../components/Button";
 import { useQuiz } from "../context/QuizContext";
 
 const QuizPage = () => {
-  const { questions, currentQuestionIndex, setSelectedAnswer, nextQuestion } =
-    useQuiz();
-  const [timer, setTimer] = useState(10);
+  const {
+    questions,
+    currentQuestionIndex,
+    selectedAnswer,
+    checkAnswer,
+    nextQuestion,
+    score,
+    timer,
+  } = useQuiz();
+
+  const navigate = useNavigate();
   const currentQuestion = questions[currentQuestionIndex];
 
-  //   useEffect(() => {
-  //     // Reset timer on new question
-  //     setTimer(10);
-
-  //     const countdown = setInterval(() => {
-  //       setTimer((prev) => {
-  //         if (prev === 1) {
-  //           clearInterval(countdown);
-  //           nextQuestion(); // Auto-move to next question
-  //         }
-  //         return prev > 0 ? prev - 1 : 0;
-  //       });
-  //     }, 1000);
-
-  //     return () => clearInterval(countdown); // Cleanup when component unmounts or question changes
-  //   }, [currentQuestionIndex, nextQuestion]);
-
-  //   useEffect(() => {
-  //     setTimer(10); // Reset timer when the question changes
-
-  //     const countdown = setInterval(() => {
-  //       setTimer((prev) => (prev > 0 ? prev - 1 : 0));
-  //     }, 1000);
-
-  //     return () => clearInterval(countdown); // Cleanup on unmount or question change
-  //   }, [currentQuestionIndex]);
-
   useEffect(() => {
-    setTimer(10); // Reset timer when the question loads
+    if (!currentQuestion) return;
+  }, [currentQuestionIndex]);
 
-    const countdown = setInterval(() => {
-      setTimer((prev) => (prev > 0 ? prev - 1 : 0));
-    }, 1000);
+  const handleAnswerSelect = (answer) => {
+    checkAnswer(answer); // Use checkAnswer from context
+  };
 
-    return () => clearInterval(countdown); // Cleanup when component unmounts or question changes
-  }, []); // ⬅️ Empty dependency array ensures it runs only once
+  const handleNext = () => {
+    if (currentQuestionIndex < questions.length - 1) {
+      nextQuestion();
+    } else {
+      navigate("/result");
+    }
+  };
 
-  if (!currentQuestion) return <p>No questions available.</p>;
+  if (!currentQuestion) return <p>Loading questions...</p>;
 
   return (
-    <div className="flex flex-col items-center p-6 max-w-2xl mx-auto">
+    <div className="flex flex-col items-center lg:p-6 mx-auto">
       {/* Progress Bar */}
-      <div className="w-full flex justify-between items-center mb-4">
-        <div>
+      <div className="w-full flex flex-col justify-between mb-[48px]">
+        <div className="flex items-center justify-between gap-2">
           <span className="text-2xl font-medium">
             <span className="text-primary">{currentQuestionIndex + 1}</span> /{" "}
             {questions.length}
@@ -72,37 +62,51 @@ const QuizPage = () => {
       </div>
 
       {/* Question */}
-      <h2 className="text-lg font-semibold mb-4">{currentQuestion.question}</h2>
+      <h2 className="lg:text-2xl text-xl font-semibold mb-4 text-left">
+        {currentQuestion.question}
+      </h2>
 
       {/* Options */}
-      <div className="w-full space-y-2">
+      <div className="w-full space-y-2 max-w-[800px] mt-6">
         {currentQuestion.options.map((option, index) => (
           <label
             key={index}
-            className="block p-3 border rounded cursor-pointer hover:bg-gray-100"
+            className={`flex items-center lg:text-xl text-base rounded-lg border border-borderColor p-4 cursor-pointer ${
+              selectedAnswer === option ? "border-primary" : ""
+            }`}
           >
             <input
               type="radio"
               name="answer"
-              className="mr-2"
-              onChange={() => setSelectedAnswer(option)}
+              value={option}
+              checked={selectedAnswer === option}
+              onChange={() => handleAnswerSelect(option)}
+              className="hidden"
             />
+            <span
+              className={`w-6 h-6 mr-4 flex items-center justify-center border rounded-full ${
+                selectedAnswer === option
+                  ? "border-primary bg-primary"
+                  : "border-color_C2C2C2"
+              }`}
+            >
+              {selectedAnswer === option && <RadioIcon />}
+            </span>
             {option}
           </label>
         ))}
       </div>
 
       {/* Buttons */}
-      <div className="flex w-full justify-between mt-6">
-        <button
-          className="bg-pink-500 text-white px-6 py-2 rounded"
-          onClick={nextQuestion}
-        >
-          Next
-        </button>
-        <button className="text-gray-500 px-6 py-2" onClick={nextQuestion}>
-          Skip this question
-        </button>
+      <div className="flex w-full gap-10 mt-10">
+        <Button
+          title="Next"
+          clickEvent={handleNext}
+          className="disabled:opacity-40"
+          attributes={{
+            disabled: selectedAnswer === null, // Ensures the button is disabled until an answer is selected
+          }}
+        />
       </div>
     </div>
   );

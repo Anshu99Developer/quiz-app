@@ -40,13 +40,13 @@ const Welcome = () => {
 
   return (
     <div className="lg:py-[60px] py-[40px]">
-      <h1 className="text-[64px] text-[#2E2E2E] font-medium text-center">
+      <h1 className="lg:text-[64px] text-[32px] text-[#2E2E2E] font-medium text-center">
         Welcome to <span className="text-primary font-light">QUIZ</span>
         <span className="text-primary font-medium">Mania</span>
       </h1>
       <div className="w-full mx-auto max-w-[600px] mt-7">
         <div className="bg-[#D9D9D94D] px-4 py-3 rounded-lg">
-          <p className="text-lg">
+          <p className="lg:text-lg text-sm">
             Please read all the rules about this quiz before you start.{" "}
             <span
               className="text-primary block cursor-pointer"
@@ -68,13 +68,13 @@ const Welcome = () => {
               value={formData.fullName}
               onChange={(e) => handleInputChange("fullName", e.target.value)}
               placeholder="Full name"
-              className="text-xl border border-color_C2C2C2 rounded-lg py-[15px] px-[21px] placeholder:text-placeholderColor bg-transparent"
+              className="lg:text-xl text-base border border-color_C2C2C2 rounded-lg py-[15px] px-[21px] placeholder:text-placeholderColor bg-transparent"
             />
           </div>
 
           <div className="mt-8">
             <p className="text-base">Please select topic to continue</p>
-            <div className="grid grid-cols-2 gap-6 mt-4">
+            <div className="grid lg:grid-cols-2 grid-cols-1 lg:gap-6 gap-4 mt-4">
               {quizCategory.map((topic) => (
                 <Option
                   key={topic?.id}

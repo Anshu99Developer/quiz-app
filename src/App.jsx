@@ -11,7 +11,7 @@ function App() {
       <QuizProvider>
         <span className="backdrop-panel bg-backdropColor w-full h-full fixed z-40 top-0 left-0"></span>
         <AppHeader />
-        <div className="max-w-[800px] w-full mx-auto">
+        <div className="max-w-[800px] w-full mx-auto px-[18px]">
           <Routes>
             <Route path="/" element={<Welcome />} />
             <Route path="quiz" element={<QuizPage />} />

@@ -19,6 +19,7 @@ export default {
         color_C2C2C2: "#C2C2C2",
         placeholderColor: "rgba(46,46,46,0.4)",
         backdropColor: "rgba(0,0,0,0.3)",
+        success:"#06AF52",
       },
       boxShadow: {},
       fontSize: {
